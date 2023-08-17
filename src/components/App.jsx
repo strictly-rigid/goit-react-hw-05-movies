@@ -3,10 +3,22 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 // import { MutatingDots } from 'react-loader-spinner';
 
 const HomePage = lazy(() => import('pages/HomePage'));
-const Movies = lazy(() => import('pages/HomePage'));
+const Movies = lazy(() => import('pages/Movies'));
 const MovieDetails = lazy(() => import('pages/MovieDetails'));
-const Cast = lazy(() => import('components/Cast'));
-const Reviews = lazy(() => import('components/Reviews'));
+
+const Cast = lazy(() =>
+  import('./Cast').then(module => ({
+    ...module,
+    default: module.Cast,
+  }))
+);
+
+const Reviews = lazy(() =>
+  import('./Reviews').then(module => ({
+    ...module,
+    default: module.Reviews,
+  }))
+);
 
 export const App = () => {
   return (

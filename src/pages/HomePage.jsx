@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
-import fetchTrendingMovies from 'services/api';
+import { fetchTrendingMovies } from 'services/api';
 
 const HomePage = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -22,7 +22,7 @@ const HomePage = () => {
         <ul>
           {trendingMovies.map(movie => (
             <li key={movie.id}>
-              <Link to={`/movie/${movie.id}`}>
+              <Link to={`/movies/${movie.id}`}>
                 {movie.title}
                 {/* <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
