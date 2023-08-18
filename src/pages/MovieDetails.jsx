@@ -13,6 +13,7 @@ const MovieDetails = () => {
   useEffect(() => {
     async function getMovieDetails() {
       const movieDetails = await fetchMovieDetails(movieId);
+
       if (movieDetails) {
         setMovieInfo(movieDetails);
       }
