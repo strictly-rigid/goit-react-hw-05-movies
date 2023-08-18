@@ -23,11 +23,14 @@ const Reviews = lazy(() =>
 export const App = () => {
   return (
     <div>
-      <p>Мій олюблений Реакт😂</p>
       <header>
-        <nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/movies">Movies</NavLink>
+        <nav className="header">
+          <NavLink to="/" className="nav-link">
+            Home
+          </NavLink>
+          <NavLink to="/movies" className="nav-link">
+            Movies
+          </NavLink>
         </nav>
       </header>
       <main>

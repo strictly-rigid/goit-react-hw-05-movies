@@ -10,7 +10,6 @@ export const Cast = () => {
   useEffect(() => {
     async function getMovieCast() {
       const movieCast = await fetchMovieCast(movieId);
-      console.log(movieCast);
       if (movieCast) {
         setCastInfo(movieCast.cast);
       }

@@ -5,7 +5,7 @@ import { fetchMovieDetails } from 'services/api';
 
 const MovieDetails = () => {
   const location = useLocation();
-  const backLinkLocationRef = useRef(location.state?.from ?? '/dogs');
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
   const { movieId } = useParams();
 
   const [movieInfo, setMovieInfo] = useState({});
@@ -13,7 +13,6 @@ const MovieDetails = () => {
   useEffect(() => {
     async function getMovieDetails() {
       const movieDetails = await fetchMovieDetails(movieId);
-      console.log(movieDetails);
       if (movieDetails) {
         setMovieInfo(movieDetails);
       }

@@ -13,7 +13,6 @@ export async function fetchTrendingMovies(apiKey) {
       );
     }
     const data = await response.json();
-    console.log(data.results);
     return data.results;
   } catch (error) {
     console.error(error);

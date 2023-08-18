@@ -13,3 +13,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.header {
+  height: 44px;
+  width: 100%;
+  background-color: rgb(156, 229, 246);
+}
+
+.nav-link {
+  margin-right: 20px;
+  text-decoration: none;
+  color: black;
+  font-size: 36px;
+}
+
+.nav-link.active {
+  color: rgb(16, 22, 183);
+}

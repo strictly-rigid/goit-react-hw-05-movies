@@ -10,25 +10,27 @@ export const Reviews = () => {
   useEffect(() => {
     async function getMovieReviews() {
       const fetchedReviews = await fetchMovieReviews(movieId);
-      console.log(fetchedReviews);
       if (fetchedReviews && fetchedReviews.results) {
         setMovieReviews(fetchedReviews.results);
       }
     }
     getMovieReviews(movieId);
   }, [movieId]);
-  console.log(movieReviews);
 
   return (
     <div>
-      <ul>
-        {movieReviews.map(review => (
-          <li key={review.created_at}>
-            <h2>{review.author}</h2>
-            <p>{review.content}</p>
-          </li>
-        ))}
-      </ul>
+      {movieReviews.length > 0 ? (
+        <ul>
+          {movieReviews.map(review => (
+            <li key={review.created_at}>
+              <h2>{review.author}</h2>
+              <p>{review.content}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Sorry, no reviews for this movie.</p>
+      )}
     </div>
   );
 };

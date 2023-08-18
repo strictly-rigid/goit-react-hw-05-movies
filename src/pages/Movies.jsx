@@ -16,7 +16,6 @@ const Movies = () => {
       if (buttonClicked && searchQuery) {
         async function getMoviesList() {
           const fetchedMoviesList = await fetchQueryRequest(searchQuery);
-          console.log(fetchedMoviesList);
           if (fetchedMoviesList && fetchedMoviesList.results) {
             setMoviesList(fetchedMoviesList.results);
           }
@@ -52,11 +51,15 @@ const Movies = () => {
       >
         Search
       </button>
-      <Link>
+      <ul>
         {moviesList.map(movie => (
-          <li key={movie.id}>{movie.title}</li>
+          <li key={movie.id}>
+            <Link to={`/movies/${movie.id}`}>
+              <h3>{movie.title}</h3>
+            </Link>
+          </li>
         ))}
-      </Link>
+      </ul>
     </div>
   );
 };
