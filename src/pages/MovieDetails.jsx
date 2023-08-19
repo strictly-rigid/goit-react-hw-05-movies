@@ -1,12 +1,19 @@
-import { Suspense, useRef, useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 
-import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  useParams,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { fetchMovieDetails } from 'services/api';
 
 const MovieDetails = () => {
   const location = useLocation();
-  const backLinkLocationRef = useRef(location.state?.from ?? '/');
+  // const backLinkLocationRef = useRef(location.state?.from ?? '/');
   const { movieId } = useParams();
+  const navigate = useNavigate();
 
   const [movieInfo, setMovieInfo] = useState({});
   const [posterUrl, setPosterUrl] = useState('');
@@ -31,9 +38,13 @@ const MovieDetails = () => {
 
   const year = new Date(release_date).getFullYear();
 
+  const handleGoBack = () => {
+    navigate(location.state?.from ?? '/');
+  };
+
   return (
     <>
-      <Link to={backLinkLocationRef.current}>Go back</Link>
+      <button onClick={handleGoBack}>Go back</button>
       <h1>
         {original_title} {year}
       </h1>
@@ -50,10 +61,14 @@ const MovieDetails = () => {
       <p>Additional information</p>
       <ul>
         <li>
-          <Link to="cast">Cast</Link>
+          <Link to="cast" state={{ from: location.state.from }}>
+            Cast
+          </Link>
         </li>
         <li>
-          <Link to="reviews">Reviews</Link>
+          <Link to="reviews" state={{ from: location.state.from }}>
+            Reviews
+          </Link>
         </li>
       </ul>
       <Suspense fallback={<div>Wait, the page is loading...</div>}>

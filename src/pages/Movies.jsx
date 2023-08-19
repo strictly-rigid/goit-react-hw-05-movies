@@ -1,54 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { fetchQueryRequest } from 'services/api';
+import MoviesList from 'components/MoviesList';
 import css from './Movies.module.css';
 
 const Movies = () => {
   const [moviesList, setMoviesList] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [buttonClicked, setButtonClicked] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get('query');
 
   useEffect(() => {
-    if (buttonClicked && searchQuery) {
+    if (query) {
       async function getMoviesList() {
-        const fetchedMoviesList = await fetchQueryRequest(searchQuery);
+        const fetchedMoviesList = await fetchQueryRequest(query);
         if (fetchedMoviesList && fetchedMoviesList.results) {
           setMoviesList(fetchedMoviesList.results);
         }
-        setButtonClicked(false);
       }
       getMoviesList();
     }
-  }, [buttonClicked, searchQuery]);
+  }, [query]);
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    setButtonClicked(true);
-  };
 
-  const updateQueryString = evt => {
-    const currentSearchQuery = evt.target.value;
-    setSearchQuery(currentSearchQuery);
+    setSearchParams({ query: event.currentTarget.elements.query.value });
   };
 
   return (
     <div>
       <form onSubmit={handleFormSubmit}>
-        <input type="text" onChange={updateQueryString} />
+        <input type="text" name="query" />
         <button className={css.btnSubmit} type="submit">
           Search
         </button>
       </form>
 
-      <ul>
-        {moviesList.map(movie => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>
-              <h3>{movie.title}</h3>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <MoviesList movies={moviesList} />
     </div>
   );
 };

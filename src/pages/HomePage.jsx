@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import { Link, useLocation } from 'react-router-dom';
 import { fetchTrendingMovies } from 'services/api';
+import MoviesList from 'components/MoviesList';
 import css from './HomePage.module.css';
 
 const HomePage = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
-  const location = useLocation();
   useEffect(() => {
     async function getTrendingMovies() {
       const movies = await fetchTrendingMovies();
@@ -21,7 +20,7 @@ const HomePage = () => {
     trendingMovies.length > 0 && (
       <div className={css.homepageContainer}>
         <h1>Trending today</h1>
-        <ul className={css.moviesList}>
+        {/* <ul className={css.moviesList}>
           {trendingMovies.map(movie => (
             <li key={movie.id} className={css.movieItem}>
               <Link to={`/movies/${movie.id}`} state={{ from: location }}>
@@ -36,7 +35,8 @@ const HomePage = () => {
               </Link>
             </li>
           ))}
-        </ul>
+        </ul> */}
+        <MoviesList movies={trendingMovies} />
       </div>
     )
   );
